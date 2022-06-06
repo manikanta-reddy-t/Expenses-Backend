@@ -7,6 +7,8 @@ import lombok.Data;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -18,8 +20,8 @@ public class Cash {
     private Long id;
     private Long amount;
     private String purpose;
-    private Date date;
-    private Time time;
+    private Date date= Date.valueOf(LocalDate.now());
+    private Time time= Time.valueOf(LocalTime.now());
     private String Category;
     private String paymentMode;
     private Boolean edited;

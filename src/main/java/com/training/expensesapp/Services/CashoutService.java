@@ -21,15 +21,11 @@ public class CashoutService {
 
     public void cashoutPost(CashoutRequest cashOutRequest) {
         Cash cash = cashoutMapper.cashOutRequestToCashOut(cashOutRequest);
-        cash.setDate(Date.valueOf(cashOutRequest.getDateString()));
-        cash.setTime(Time.valueOf(cashOutRequest.getTimeString()));
         cashoutRepository.save(cash);
     }
     public void cashoutUpdate(CashoutRequest cashOutRequest, Long id){
         Cash cashout =cashoutRepository.findById(id).orElse(new Cash());
         cashoutMapper.updateCashOut(cashOutRequest, cashout);
-        cashout.setDate(Date.valueOf(cashOutRequest.getDateString()));
-        cashout.setTime(Time.valueOf(cashOutRequest.getTimeString()));
         cashoutRepository.save(cashout);
     }
     public void cashoutDelete(Long id){
