@@ -1,6 +1,8 @@
 package com.training.expensesapp.Controller;
 
 
+import com.training.expensesapp.DTO.CashoutDTO;
+import com.training.expensesapp.Mappers.CashoutMapper;
 import com.training.expensesapp.Models.Cash;
 import com.training.expensesapp.Repository.CashoutRepository;
 import com.training.expensesapp.Requests.CashoutRequest;
@@ -20,17 +22,20 @@ public class CashoutController {
     private CashoutRepository cashoutRepository;
     @Autowired
     private CashoutService cashoutService;
+    @Autowired
+    private CashoutMapper cashoutMapper;
 
 
     @GetMapping
-    public List<Cash> cashoutRead(){
-        return cashoutRepository.findAll();
+    public List<CashoutDTO> cashoutRead(){
+        return cashoutMapper.mapListCashtoCashDTO(cashoutRepository.findAll());
+
     }
     @PostMapping
-    public Cash cashoutCreate(@RequestBody CashoutRequest cashOutRequest){
+    public CashoutDTO cashoutCreate(@RequestBody CashoutRequest cashOutRequest){
         cashoutService.cashoutPost(cashOutRequest);
         List<Cash> cash =cashoutRepository.findAll();
-        return cash.get(cash.size()-1);
+        return cashoutMapper.map(cash.get(cash.size()-1));
     }
     @PutMapping("/update")
     public void cashoutPut(@RequestBody CashoutRequest cashOutRequest){
